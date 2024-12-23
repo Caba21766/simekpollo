@@ -1,0 +1,80 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block navegacion %}
+{% include 'navegacion.html' %}
+{% endblock %}
+{% block contenido %}
+
+<div class="container my-5">
+    <h1 class="text-center">Productos Vendidos</h1>
+
+    <!-- Formulario de filtros -->
+    <form method="get" class="mb-4">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="nombre_producto" class="form-label">Filtrar por Nombre del Producto</label>
+                <input type="text" name="nombre_producto" id="nombre_producto" class="form-control"
+                       placeholder="Nombre del producto" value="{{ filtro_nombre_producto }}">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="fecha_desde" class="form-label">Fecha Desde</label>
+                <input type="date" name="fecha_desde" id="fecha_desde" class="form-control"
+                       value="{{ fecha_desde }}">
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="fecha_hasta" class="form-label">Fecha Hasta</label>
+                <input type="date" name="fecha_hasta" id="fecha_hasta" class="form-control"
+                       value="{{ fecha_hasta }}">
+            </div>
+            <div class="col-md-2 mb-3 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+            </div>
+            <div class="col-md-2 mb-3 d-flex align-items-end">
+                <a href="{% url 'CarritoApp:productos_vendidos' %}" class="btn btn-secondary w-100">Restablecer</a>
+            </div>
+        </div>
+    </form>
+
+    {% if productos_vendidos %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Nombre del Producto</th>
+                        <th>Cantidad Vendida</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for producto in productos_vendidos %}
+                    <tr>
+                        <td>{{ producto.fecha }}</td>
+                        <td>{{ producto.nombre_producto }}</td>
+                        <td>{{ producto.cantidad_vendida }}</td>
+                        <td>${{ producto.precio_unitario|floatformat:2 }}</td>
+                        <td>${{ producto.total|floatformat:2 }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="2" class="text-end">Totales:</th>
+                        <th>{{ total_cantidad_vendida }}</th>
+                        <th>${{ total_precio_unitario|floatformat:2 }}</th>
+                        <th>${{ total_precio|floatformat:2 }}</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    {% else %}
+        <p>No hay productos vendidos registrados.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}

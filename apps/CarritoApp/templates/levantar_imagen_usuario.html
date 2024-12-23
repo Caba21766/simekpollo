@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Imagen de Factura</title>
+</head>
+<body>
+    <h1>Subir Imagen de Factura - {{ factura.numero_factura }}</h1>
+
+    <!-- Formulario para subir imagen desde archivo -->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Guardar Imagen</button>
+    </form>
+
+    <!-- Sección para capturar imagen desde cámara -->
+    <h3>O capturar imagen desde cámara:</h3>
+    <video id="video" autoplay playsinline width="300"></video>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <br>
+    <button id="capture">Capturar Foto</button>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="captured_image" id="captured_image">
+        <button type="submit" id="save_image" style="display: none;">Guardar Foto Capturada</button>
+    </form>
+
+    <a href="{% url 'CarritoApp:facturas_usuario' %}">Volver</a>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureButton = document.getElementById('capture');
+        const saveButton = document.getElementById('save_image');
+        const capturedImageInput = document.getElementById('captured_image');
+
+        // Acceso a la cámara
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => video.srcObject = stream)
+            .catch(err => console.error('Error al acceder a la cámara:', err));
+
+        // Capturar imagen
+        captureButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const context = canvas.getContext('2d');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const imageData = canvas.toDataURL('image/jpeg');
+            capturedImageInput.value = imageData;
+            saveButton.style.display = 'inline';
+        });
+    </script>
+</body>
+</html>

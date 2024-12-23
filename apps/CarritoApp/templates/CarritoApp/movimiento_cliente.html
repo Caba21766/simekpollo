@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block navegacion %}
+    {% include 'navegacion.html' %}
+{% endblock %}
+
+{% block contenido %}
+
+<div class="container py-5">
+    <h1 class="text-center mb-4">Movimiento Clientes</h1>
+
+    <!-- Formulario de Filtros -->
+    <form method="get" class="mb-4">
+        <div class="row g-3">
+            <div class="col-12 col-md-4">
+                <label for="apellido_cliente" class="form-label">Buscar por apellido</label>
+                <input type="text" name="apellido_cliente" id="apellido_cliente" class="form-control" placeholder="Apellido" value="{{ request.GET.apellido_cliente }}">
+            </div>
+            <div class="col-12 col-md-3">
+                <label for="fecha_desde" class="form-label">Fecha Desde</label>
+                <input type="date" name="fecha_desde" id="fecha_desde" class="form-control" value="{{ request.GET.fecha_desde }}">
+            </div>
+            <div class="col-12 col-md-3">
+                <label for="fecha_hasta" class="form-label">Fecha Hasta</label>
+                <input type="date" name="fecha_hasta" id="fecha_hasta" class="form-control" value="{{ request.GET.fecha_hasta }}">
+            </div>
+            <div class="col-12 col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+            </div>
+            <div class="col-12 col-md-2 d-flex align-items-end">
+                <a href="{% url 'CarritoApp:movimiento_cliente' %}" class="btn btn-secondary w-100">Restablecer</a>
+            </div>
+        </div>
+    </form>
+
+    <!-- Tabla de Facturas -->
+    {% if facturas %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">N° Factura</th>
+                        <th scope="col">Apellido Cliente</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Método de Pago</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for factura in facturas %}
+                        <tr>
+                            <td>{{ factura.numero_factura }}</td>
+                            <td>{{ factura.apellido_cliente }}</td>
+                            <td>{{ factura.fecha }}</td>
+                            <td>{{ factura.metodo_pago }}</td>
+                            <td>${{ factura.total|floatformat:2 }}</td>
+                            <td>
+                                <div class="d-flex gap-2">
+                                    <a href="{% url 'CarritoApp:detalle_factura' factura.id %}" class="btn btn-success btn-sm">
+                                        <i class="bi bi-eye"></i> Ver 
+                                    </a>
+                                    <a href="{% url 'CarritoApp:generar_pdf_factura' factura.id %}" class="btn btn-primary btn-sm">
+                                        <i class="bi bi-download"></i> Descargar
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p class="text-center text-muted">No tienes facturas disponibles.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block footer %}
+    {% include 'footer.html' %}
+{% endblock %}

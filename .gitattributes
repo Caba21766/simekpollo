@@ -1,0 +1,16 @@
+# Normalizar los saltos de línea automáticamente
+* text=auto
+
+# Archivos de Python siempre con LF
+*.py text eol=lf
+
+# Archivos sensibles como .gitignore con LF
+.gitignore text eol=lf
+
+# Archivos de texto específicos siempre con LF
+*.txt text eol=lf
+
+# Archivos binarios sin conversiones de saltos de línea
+*.jpg binary
+*.png binary
+*.gif binary

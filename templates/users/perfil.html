@@ -1,0 +1,16 @@
+<!-- profile.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil del Usuario</title>
+</head>
+<body>
+    <h1>Perfil de Usuario</h1>
+    {% if profile_images %}
+    <img src="{{ MEDIA_URL }}profile_images/images.jfif" alt="Imagen de perfil">
+    {% else %}
+        <p>No se ha subido una imagen de perfil.</p>
+    {% endif %}
+</body>
+</html>

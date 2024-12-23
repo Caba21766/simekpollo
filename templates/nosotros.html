@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navegacion %}
+{% include 'navegacion.html' %}
+{% endblock %}
+
+{% block contenido %}
+<div>
+  <section style="
+    display: flex; 
+    flex: 1; 
+    max-width: 1500px; /* Limitar el ancho máximo */
+    width: 100%; 
+    margin: 0 auto; /* Centrar la sección horizontalmente */
+    background-color: rgb(53, 58, 58); 
+    box-sizing: border-box;
+    padding-top: 0px; /* Separación del menú de navegación */
+    height: calc(100vh - 80px); /* Ajustar la altura al tamaño de la pantalla menos el padding superior */
+  ">
+
+    <article style="
+      flex: 2; 
+      padding: 20px; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: flex-start;
+      height: 100%;
+      overflow-y: auto;
+    ">
+      <h1>Un poco de Historia</h1>
+      <h2>¿Cómo y cuándo nace el Info?</h2>
+      <p>El Informatorio Chaco nace en el año 2012 con la propuesta de generar economía del conocimiento ...
+        La Innovación, crecimiento con de nuestro estudio es para generar
+        un desarrollo sustentable hacia ofertas de soluciones digitales le permite optimizar el
+        vínculo digital con las demandas, ya sea con el desarrollo de una aplicación móvil,
+        un complejo sistema de gestión o una página web institucional.
+        Nuestro objetivo es que se pueda concentrar en el core de los negocios y nosotros resolvamos
+        los aspectos técnicos para que el mismo funcione de la mejor forma posible.</p>
+      <div style="display: flex; gap: 10px;">
+        <img src="{% static 'img/Chaco Info.jpg' %}" style="height: 130px; width: 100px;">
+        <img src="{% static 'img/Chaco_Info2.png' %}" style="height: 130px; width: 100px;">
+      </div>
+    </article>
+
+    <aside style="
+      flex: 1; 
+      background-color: orange; 
+      padding: 20px; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: flex-start;
+      height: 100%;
+      overflow-y: auto;
+    ">
+      <h2>Recursos adicionales</h2>
+      <img src="{% static 'img/logo.png' %}" style="height: 130px; width: 100px;">
+      <p>Dimos los primeros pasos con guías de incorporación exhaustivas donde ofrecia todo lo que se necesita
+        durante todo el curso con Lenguajes de alto nivel
+        en cada aplicación. Aquí tienes algunos ejemplos.
+        HTML - CSS - Python - GitHub
+        y Django.</p>
+
+      <p>Nos informaron sobre los detalles de las demandas y de
+        consulta para información con el Centro de Ayuda del Infor: si necesitas
+        información más detallada, puedes acceder a más información con un solo clic.
+        Para obtener consejos o realizar tareas en el Centro de aprendizaje</p>
+    </aside>
+  </section>
+</div>
+{% endblock %}
+
+
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}

@@ -1,0 +1,302 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navegacion %}
+{% include 'navegacion.html' %}
+{% endblock %}
+
+
+{% block contenido %}
+<!-- Estilos personalizados -->
+<style>
+    /* Estilos básicos de la tabla */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .table th, .table td {
+        padding: 12px;
+        text-align: left;
+        vertical-align: middle;
+    }
+    .table th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+    }
+
+    .table td {
+        background-color: #ffffff;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f2f2f2;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    /* Estilo para los botones */
+    .btn {
+        padding: 8px 12px;
+        font-size: 14px;
+        border-radius: 5px;
+        margin-right: 5px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .btn-warning {
+        background-color: #ffc107;
+        color: white;
+    }
+
+    .btn-warning:hover {
+        background-color: #e0a800;
+    }
+
+    /* Responsividad */
+    @media (max-width: 767px) {
+        .table th, .table td {
+            padding: 8px;
+            font-size: 12px; /* Reducir el tamaño de las letras */
+        }
+
+        .btn {
+            padding: 6px 8px;
+            font-size: 12px;
+        }
+    }
+</style>
+
+<style>
+    .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    h1, h2 {
+        color: #333;
+        font-weight: bold;
+    }
+
+    /* Estilos para el formulario */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #218838;
+    }
+
+    /* Estilo para la tabla */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .table th, .table td {
+        padding: 12px;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .table th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+    }
+
+    .table td {
+        background-color: #ffffff;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f2f2f2;
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: #e9ecef;
+    }
+
+    .btn-sm {
+        padding: 5px 10px;
+        font-size: 12px;
+        margin-right: 5px;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    /* Responsividad */
+    @media (max-width: 767px) {
+        .table th, .table td {
+            padding: 8px;
+        }
+
+        button {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+
+        .form-control {
+            padding: 6px;
+            font-size: 14px;
+        }
+    }
+</style>
+
+<div class="container">
+    <h1>Agregar Proveedor</h1>
+
+    <!-- Mensajes de éxito -->
+    {% if messages %}
+        <ul class="alert alert-info">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <!-- Formulario para agregar o modificar un proveedor -->
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            {{ form.nombre }}
+        </div>
+        <div class="form-group">
+            <label for="direccion">Dirección:</label>
+            {{ form.direccion }}
+        </div>
+        <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            {{ form.telefono }}
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            {{ form.email }}
+        </div>
+        <button type="submit">Guardar Proveedor</button>
+    </form>
+
+    <hr>
+
+    <!-- Listado de proveedores con botones de modificar y eliminar -->
+    <h2>Categorías Existentes</h2>
+    {% if provedores %}
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Dirección</th>
+                        <th>Teléfono</th>
+                        <th>Email</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for provedor in provedores %}
+                    <tr>
+                        <td>{{ provedor.nombre }}</td>
+                        <td>{{ provedor.direccion }}</td>
+                        <td>{{ provedor.telefono }}</td>
+                        <td>{{ provedor.email }}</td>
+                        <td>
+                            <!-- Botón para modificar -->
+                            <a href="?edit_id={{ provedor.id }}" class="btn btn-secondary btn-sm">Modificar</a>
+                            <!-- Botón para eliminar -->
+                            <a href="?delete_id={{ provedor.id }}" class="btn btn-danger btn-sm" 
+                               onclick="return confirm('¿Estás seguro de eliminar este proveedor?')">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <p>No hay proveedores registrados.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+
+
+    {% block footer %}
+    {% include 'footer.html' %}
+    {% endblock %}

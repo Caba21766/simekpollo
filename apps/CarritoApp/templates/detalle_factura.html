@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Factura Nº {{ factura.numero_factura }}</title>
+</head>
+<body>
+    <h1>Factura Nº {{ factura.numero_factura }}</h1>
+    <p><strong>Fecha:</strong> {{ factura.fecha }}</p>
+    <p><strong>Cliente:</strong> {{ factura.nombre_cliente }} {{ factura.apellido_cliente }}</p>
+    <p><strong>Método de Pago:</strong> {{ factura.metodo_pago }}</p>
+    <p><strong>Total:</strong> ${{ factura.total }}</p>
+
+    <h2>Productos Vendidos:</h2>
+    <table border="1" style="width: 100%; border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in detalle_productos %}
+            <tr>
+                <td style="text-align: center;">{{ producto.nombre_producto }}</td>
+                <td style="text-align: center;">{{ producto.cantidad_vendida }}</td>
+                <td style="text-align: center;">${{ producto.precio_unitario }}</td>
+                <td style="text-align: center;">${{ producto.subtotal }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="3" style="text-align: right;"><strong>Total:</strong></td>
+                <td style="text-align: center;"><strong>${{ factura.total }}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p style="text-align: center;">¡Gracias por su compra!</p>
+</body>
+</html>

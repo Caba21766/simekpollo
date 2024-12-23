@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navegacion %}
+{% include 'navegacion.html' %}
+{% endblock %}
+
+
+{% block contenido %}
+<div class="contenedor-formulario">
+    <div class="formulario-contacto">
+        <h2>Formulario de Contacto</h2>
+        <form action="{% url 'formulario' %}" method="post">
+            {% csrf_token %}
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Ingresa tu email" required>
+
+            <label for="consulta">Consulta:</label>
+            <textarea id="consulta" name="consulta" rows="4" placeholder="Escribe tu consulta aquí"></textarea>
+
+            <input type="submit" value="Enviar" class="btn-enviar">
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}

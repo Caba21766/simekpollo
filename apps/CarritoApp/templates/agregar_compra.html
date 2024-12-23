@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navegacion %}
+{% include 'navegacion.html' %}
+{% endblock %}
+
+{% block contenido %}
+<div class="container my-5">
+    <!-- Título principal -->
+    <h1 class="text-center text-primary mb-4">Agregar Compra</h1>
+
+    <!-- Mensaje de éxito -->
+    {% if success %}
+        <p class="alert alert-success text-center">¡Compra guardada exitosamente!</p>
+    {% endif %}
+
+    <!-- Formulario de agregar compra -->
+    <div class="card shadow-sm mb-4" style="background-color: #f8f9fa;">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="id_producto" class="form-label">Producto</label>
+                        {{ form.producto }}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_cantidad" class="form-label">Cantidad</label>
+                        {{ form.cantidad }}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_precio_compra" class="form-label">Precio Compra</label>
+                        {{ form.precio_compra }}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_factura_compra" class="form-label">Factura Compra</label>
+                        {{ form.factura_compra }}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_fecha_compra" class="form-label">Fecha de Compra</label>
+                        <input type="date" name="fecha_compra" id="id_fecha_compra" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_provedor" class="form-label">Proveedor</label>
+                        {{ form.provedor }}
+                    </div>
+                </div>
+                <div class="mt-4 text-end">
+                    <button type="submit" class="btn btn-primary btn-sm">Guardar Compra</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if not modificar %}
+
+    <div class="container mt-4 mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h2 class="text-primary fw-bold mb-4">Filtrar Compras</h2>
+                <form method="get" class="row g-3">
+                    <!-- Filtro: Producto -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <label for="producto" class="form-label fw-semibold">Producto</label>
+                        <input 
+                            type="text" 
+                            name="producto" 
+                            id="producto" 
+                            class="form-control" 
+                            placeholder="Ingrese producto" 
+                            value="{{ request.GET.producto }}">
+                    </div>
+    
+                    <!-- Filtro: Fecha de Compra -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <label for="fecha_compra" class="form-label fw-semibold">Fecha de Compra</label>
+                        <input 
+                            type="date" 
+                            name="fecha_compra" 
+                            id="fecha_compra" 
+                            class="form-control" 
+                            value="{{ request.GET.fecha_compra }}">
+                    </div>
+    
+                    <!-- Filtro: Factura -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <label for="factura" class="form-label fw-semibold">Factura</label>
+                        <input 
+                            type="text" 
+                            name="factura" 
+                            id="factura" 
+                            class="form-control" 
+                            placeholder="Ingrese número de factura" 
+                            value="{{ request.GET.factura }}">
+                    </div>
+    
+                    <!-- Filtro: Proveedor -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <label for="proveedor" class="form-label fw-semibold">Proveedor</label>
+                        <input 
+                            type="text" 
+                            name="proveedor" 
+                            id="proveedor" 
+                            class="form-control" 
+                            placeholder="Ingrese proveedor" 
+                            value="{{ request.GET.proveedor }}">
+                    </div>
+    
+                    <!-- Botones de Acción -->
+                    <div class="col-12 d-flex justify-content-end gap-2 mt-3">
+                        <button type="submit" class="btn btn-success px-4">
+                            <i class="bi bi-filter me-2"></i> Filtrar
+                        </button>
+                        <a href="?producto=&fecha_compra=&factura=&proveedor=" class="btn btn-outline-danger px-4">
+                            <i class="bi bi-x-circle me-2"></i> Restablecer
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    
+    <hr class="my-4">
+    <!-- Listado de Compras -->
+    <h2 class="text-success mb-4">Listado de Compras</h2>
+    
+    {% if compras %}
+        <div class="table-responsive shadow-sm rounded bg-light p-3">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Factura</th>
+                        <th>Fecha de Compra</th>
+                        <th>Proveedor</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+             
+                <tbody>
+                    {% for compra in compras %}
+                    <tr>
+                        <td>{{ compra.producto.nombre_producto }}</td>
+                        <td>{{ compra.cantidad }}</td>
+                        <td>${{ compra.precio_compra }}</td>
+                        <td>{{ compra.factura_compra }}</td>
+                        <td>{{ compra.fecha_compra }}</td>
+                        <td>{{ compra.provedor.nombre }}</td>
+
+                        <td class="d-flex justify-content-center gap-2">
+                            <a href="{% url 'CarritoApp:modificar_compra' compra.id %}" class="btn btn-secondary btn-sm">Modificar</a>
+
+
+                            <form action="{% url 'CarritoApp:eliminar_compra' compra.id %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary  btn-sm" onclick="return confirm('¿Estás seguro de eliminar esta compra?')">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center text-muted">No se encontraron compras.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+            </table>
+            <tr>
+                <td colspan="2">Se compro la Cantidad de:</td>
+                <td>{{ total_cantidad }}</td>
+                <td colspan="2">Por el Precio:</td>
+                <td>${{ total_precio|floatformat:2 }}</td>
+            </tr>
+        </div>
+    {% else %}
+        <p class="text-center text-muted">No se encontraron compras con los filtros seleccionados.</p>
+    {% endif %}
+</div>
+
+{% endif %}
+
+
+{% endblock %}

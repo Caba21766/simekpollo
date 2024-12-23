@@ -1,0 +1,7 @@
+<div class="container">
+    <h2>¡Gracias por tu opinión!</h2>
+    <p>Tu opinión ha sido guardada exitosamente.</p>
+    <a href="{% url 'opiniones:agregar_opinion' producto.id %}" class="btn btn-primary">
+        Volver al producto {{ producto.nombre_producto }}
+    </a>
+</div>

@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navegacion %}
+{% include 'navegacion.html' %}
+{% endblock %}
+
+{% block contenido %}
+<div class="container my-5">
+    <h1 class="text-center text-primary mb-4">Listado de Opiniones</h1>
+
+    {% if opiniones %}
+        <ul class="list-group">
+            {% for opinion in opiniones %}
+                <li class="list-group-item">
+                    <h6 class="text-success fw-bold">Producto: {{ opinion.producto.nombre_producto }}</h6>
+                    
+                    <!-- Mostrar el nombre del usuario -->
+                    <p>
+                        <strong>Usuario:</strong> {{ opinion.usuario.first_name }} {{ opinion.usuario.last_name }}
+                    </p>
+
+                    <!-- Mostrar el texto completo -->
+                    <p>
+                        <strong>Texto completo:</strong><br>
+                        {{ opinion.texto|linebreaks }}
+                    </p>
+
+                    <!-- Mostrar el administrador que respondió -->
+                    <p>
+                        <strong>Administrador:</strong>
+                        {% if opinion.administrador %}
+                            {{ opinion.administrador.first_name }} {{ opinion.administrador.last_name }}
+                        {% else %}
+                            No respondido aún
+                        {% endif %}
+                    </p>
+
+                    <!-- Mostrar la fecha -->
+                    <em class="text-muted">Fecha: {{ opinion.fecha|date:"d M Y" }}</em>
+
+                    <!-- Botones de acción -->
+                    <div class="mt-3">
+                        <!-- Botón para ir a la vista de responder -->
+                        <a href="{% url 'opiniones:opinion_administrador' opinion.id %}" 
+                           class="btn btn-primary btn-sm">
+                            Responder
+                        </a>
+
+                        <!-- Botón para eliminar la opinión -->
+                        <form method="POST" action="{% url 'opiniones:eliminar_opinion' opinion.id %}" 
+                              style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm" 
+                                    onclick="return confirm('¿Estás seguro de que deseas eliminar esta opinión?');">
+                                Eliminar
+                            </button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="alert alert-warning text-center mt-5" role="alert">
+            No hay opiniones disponibles.
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}

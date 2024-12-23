@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navegacion %}
+{% include 'navegacion.html' %}
+{% endblock %}
+
+
+{% block contenido %}
+
+
+<div class="container">
+    <style>
+        .titulo-grueso {
+            color: #1a1918;
+            font-weight: 900;
+        }
+    </style>
+    
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1 class="display-4 titulo-grueso"><strong>Prof. Simek German</strong></h1>
+        </div>
+    </div>
+
+    <!-- Filtro y Carrito -->
+    <div class="row mb-3 d-flex align-items-center">
+        <div class="col-12 col-md-8">
+            <form method="get" action="" class="d-flex flex-column flex-sm-row">
+                <label for="categoria" class="me-2">Categoría:</label>
+                <select name="categoria" id="categoria" class="form-select me-2">
+                    <option value="">--Todas las Categorías--</option>
+                    {% for categoria in categorias %}
+                    <option value="{{ categoria.id }}" {% if categoria.id == categoria_seleccionada %}selected{% endif %}>
+                        {{ categoria.nombre }}
+                    </option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary btn-sm">Filtrar</button>
+            </form>
+        </div>
+        
+        <div class="col-12 col-md-4 text-end mt-2 mt-md-0">
+            <a href="{% url 'CarritoApp:ver_carrito' %}" class="btn btn-secondary btn-sm">
+                <i class="bi bi-cart3"></i> Carrito
+            </a>
+        </div>
+
+
+    </div>
+
+    <!-- Productos -->
+    <div class="row">
+        {% for producto in productos_pagina %}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ producto.nombre_producto }}</h5>
+                    {% if producto.imagen %}
+                        <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" class="img-fluid mb-2">
+                    {% else %}
+                        <p>Sin imagen</p>
+                    {% endif %}
+                    <p class="card-text"><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+                    <p class="card-text"><strong>Precio:</strong> ${{ producto.precio }}</p>
+                    <p class="card-text"><strong>Stock:</strong> {{ producto.stock }}</p>
+                
+                    <a href="{% url 'opiniones:agregar_opinion' producto.id %}" class="btn btn-secondary btn-sm">Ingresar</a>
+                
+                    <!-- Verificar si el stock es mayor que 0 -->
+                    {% if producto.stock > 0 %}
+                        <a href="{% url 'CarritoApp:Add' producto.id %}" class="btn btn-primary btn-sm">Agregar al carrito</a>
+                    {% else %}
+                        <button class="btn btn-outline-danger btn-sm" disabled>Sin stock</button>
+                    {% endif %}
+                </div>
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Navegación de Páginas -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if productos_pagina.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ productos_pagina.previous_page_number }}">Anterior</a>
+            </li>
+            {% endif %}
+            {% for num in productos_pagina.paginator.page_range %}
+            <li class="page-item {% if num == productos_pagina.number %}active{% endif %}">
+                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+            </li>
+            {% endfor %}
+            {% if productos_pagina.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ productos_pagina.next_page_number }}">Siguiente</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+
+
+
+
+{% endblock %}
+
+    {% block footer %}
+    {% include 'footer.html' %}
+    {% endblock %}
