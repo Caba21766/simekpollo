@@ -1,0 +1,32 @@
+footer {
+    background-color: #000; /* Fondo negro */
+    color: #2c2b52; /* Texto blanco para que contraste con el fondo */
+    padding: 20px 0; /* Espaciado alrededor del footer */
+}
+
+.pie_de_pagina__titulo_columna {
+    color: #fff; /* Asegura que los títulos sean blancos */
+}
+
+.enlaces__enlace_footer {
+    color: #fff; /* Asegura que los enlaces sean blancos */
+}
+
+.enlaces__enlace_footer:hover {
+    color: #ff5733; /* Cambia el color de los enlaces cuando pasas el ratón por encima */
+}
+
+/* Estilo al pasar el mouse */
+.nav-link:hover, .dropdown-item:hover {
+    background-color: #f8f9fa; /* Color de fondo al hacer hover */
+    color: #343a40 !important; /* Color del texto */
+    border-radius: 5px; /* Bordes redondeados opcional */
+    transition: background-color 0.3s ease; /* Animación suave */
+}
+
+/* Estilo para el ítem activo */
+.nav-link.active, .dropdown-item.active {
+    background-color: #007bff; /* Color azul para activo */
+    color: #ffffff !important; /* Texto en blanco */
+    border-radius: 5px;
+}

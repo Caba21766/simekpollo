@@ -6,20 +6,6 @@ myenv/
 .vscode/
 .idea/
 
-# Ignorar archivos temporales y compilados
-*.pyc
-__pycache__/
-
 # Ignorar bases de datos locales
 db.sqlite3
-
-# Ignorar archivos de medios (subidas de usuarios)
-media/
-
-# Ignorar archivos estáticos generados
-staticfiles/
-
-# Archivos sensibles
-.env
-.env.example
 
