@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navegacion %}
+{% include 'navegacion.html' %}
+{% endblock %}
+
+{% block contenido %}
+<main class="principal">
+      <section class="presentacion" id="presentacion">
+            <div class="presentacion__contenedor_info">
+                <h1 class="presentacion__titulo">El Rey del Pollo</h1>
+                <p class="presentacion__parrafo">Prof. Simek Osiris German</p>
+              <div class="presentacion__contenedor_botones">
+                <!--<a href="#sobre-mi" class="boton" role="button">Lenguaje</a>-->
+                <a href="{% url 'curriculom' %}" class="boton" role="button">Ver Precios</a>
+              </div>
+            </div>
+      </section>
+</main>
+{% endblock %}
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}

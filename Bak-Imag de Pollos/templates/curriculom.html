@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Acerca de Nosotros{% endblock %}
+
+{% block navegacion %}
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <a href="{% url 'index' %}">
+        <img src="{% static 'img/logo.png' %}" alt="" width="100" height="100">
+    </a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            
+            {% if user.is_staff %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Act. Herramientas
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'apps.libros:agregar_categoria' %}">Agregar categoría</a></li>
+                    <li><a class="dropdown-item" href="{% url 'apps.libros:agregar_libro' %}">Act. Sistema</a></li>
+                </ul>
+            </li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    {{ user.username }}
+                </a>
+                <ul class="dropdown-menu">
+                    <form method="POST" action="{% url 'apps.blog_auth:cerrar_sesion' %}">
+                        {% csrf_token %}
+                        <button type="submit">Cerrar Sesión</button>
+                    </form>
+                </ul>
+            </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'formulario' %}">Formulario</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'apps.blog_auth:iniciar_sesion' %}">Iniciar sesión</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+{% endblock %}
+
+
+
+{% block contenido %}
+<section style="display: flex; flex-wrap: wrap; height: 90vh; width: 100%; 
+background-color: rgb(17, 6, 31); margin-top: 0; box-sizing: border-box;">
+  
+  <article style="flex: 1; padding: 20px; box-sizing: border-box; width: 50%; height: 100%; display: flex; flex-direction: column; align-items: flex-start; background-color: #005f73;"> <!-- azul oscuro -->
+    <h1 style="color: white;">Curriculum Vitae</h1>
+    <h2 style="color: white;">Caballero Norberto Gustavo</h2>
+    <p style="color: white;">
+        Apellido: Caballero,<br>
+        Nombre: Norberto Gustavo<br>
+        DNI: 21.766.817<br>
+        Domicilio: Brasil 237 - Tres Isletas - Chaco.<br>
+        Edad 53 años - 30/08/1970<br>
+        CEL: 3644-563925<br>
+        TEL: 0364-4461602<br>
+        Titulo 1: Técnico en Informática en Administración de Empresa<br>
+        Titulo 2: Profesor habilitante en Análisis de Sistemas<br>
+        Trabajo Actualmente: “Docente y Comerciante”<br>
+        Profesor: en el CEP Nº 94 Polimodal – “Docente Titular” 29 años de Antigüedad.<br>
+        Profesor: Laboratorio de Tecnología ISET “Instituto Superior de Educación Técnica” “Docente Titular” 29 años de Antigüedad.<br>
+        Tiempo para trabajar: full time <br>
+        Caballero, Norberto Gustavo<br>
+        TEL: 0364-4461602<br>
+        Cel 3644-563925<br>
+        Neagestión@gmail.com<br>
+        Brasil 237 – Tres Isletas - Chaco.
+    </p>
+    <div style="display: flex; justify-content: flex-end; width: 100%;">
+        <img src="{% static 'img/foto.jpg' %}" style="height: 130px; width: 100px; margin-left: auto;">
+    </div>
+    
+</article>
+  
+    <aside style="flex: 1; padding: 20px; box-sizing: border-box; width: 50%; height: 100%; background-color: orange;">
+        <h1 style="color: white;">Curriculum Vitae</h1>
+        <img src="{% static 'img/ferez.jpg' %}" style="height: 130px; width: 100px; float: right;">
+
+
+        <h2 style="color: white;">Ferez Alexis Yamil</h2>
+        <p style="color: white;">
+        Apellido: Ferez,<br>
+        Nombre: Alexis Yamil<br>
+        DNI: 31.236.063<br>
+        Domicilio: Mz 49 Pc 6 Barrio Pta del Sol - Presidencia Roque Sáenz Peña - Chaco.<br>
+        CEL: 3644 374773<br>
+        Titulo 1: Técnico en Computación - Secundario<br>
+        Titulo 2: Técnico Superior en Informática – Terciarios<br>
+        Titulo 3: Licenciado en Informática (Carrera de Ing en Sist) – Universitario<br>
+        Titulo 4: Profesor en Tecnologías de la Información y la Comunicación<br>
+        Trabajo Actualmente: “Director de EET N23 Gregoria Matorras de San Martín”<br>
+        Profesor en Informática<br>
+        Tiempo para trabajar: full time <br>
+        Cel 3644 374773<br>
+        Licenciado.ferezalexis@gmail.com<br>
+        </p>
+    </aside>
+
+</section>
+{% endblock %}

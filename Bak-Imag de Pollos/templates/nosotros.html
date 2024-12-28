@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block navegacion %}
+{% include 'navegacion.html' %}
+{% endblock %}
+
+{% block contenido %}
+<section style="display: flex; flex-wrap: wrap; height: 90vh; width: 100%; background-color: cadetblue; margin-top: 0; box-sizing: border-box;">
+    <article style="flex: 2; padding: 20px; box-sizing: border-box; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: flex-start;">
+
+        <h1>Un poco de Historia</h1>
+        <h2>¿Cómo y cuándo nace el Info?</h2>
+        <p>El Informatorio Chaco nace en el año 2012 con la propuesta de generar economía del conocimiento ...
+            La Innovación, crecimiento con de nuestro estudio es para generar 
+            un desarrollo sustentable hacia ofertas de soluciones digitales le permite optimizar el 
+            vínculo digital con las demandas, ya sea con el desarrollo de una aplicación móvil, 
+            un complejo sistema de gestión o una página web institucional. 
+            Nuestro objetivo es que se pueda concentrar  en el core de los negocios y nosotros resolvamos 
+            los aspectos técnicos para que el mismo funcione de la mejor forma posible.
+            
+            Nuestro enfoque de constelaciones de trabajo, nos permite crear equipos de alto rendimientos configurados 
+            especialmente para cada proyecto, permitiendo que nosotros coordinemos habilidades y conocimientos 
+            para garantizar resultados óptimos. De esta forma buscamos cumplir nuestra misión, asegurar que el 
+            vinculo con el mundo digital sea lo más exitosa posible. 
+            De esta forma este trabajo nos permite establecer relaciones duraderas y basadas en la confianza 
+            con las personas.
+           
+            La tecnología ha cambiado mucho, tanto lenguajes como en infraestructura digital; y sabemos que lo 
+            seguirá haciendo. Para nosotros ha sido fundamental mantener un enfoque de actualización 
+            permanente, y así brindar un servicio de excelencia a nuestros clientes utilizando tecnología de 
+            punta.</p>
+            <div style="display: flex; gap: 10px;">  <!-- Añadimos un gap de 10px para espacio entre imágenes -->
+                <img src="{% static 'img/Chaco Info.jpg' %}" style="height: 130px; width: 100px;">
+                <img src="{% static 'img/Chaco_Info2.png' %}" style="height: 130px; width: 100px;">
+            </div>
+    </article>
+
+    <aside style="flex: 1; background-color: orange; padding: 20px; box-sizing: border-box; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: flex-start;">
+        <h2>Recursos adicionales</h2>
+        <img src="{% static 'img/logo.png' %}" style="height: 130px; width: 100px;">
+            <p>Dimos los primeros pasos
+            con guías de incorporación exhaustivas donde ofrecia todo lo que se necesita
+            durante todo el curso con Lenguajes de alto nivel 
+            en cada aplicación. Aquí tienes algunos ejemplos.
+            HTML - CSS  - Python - GitHub 
+            y Django.</p>
+    
+        <p>Nos informaron sobre los detalles de las demandas y de 
+            consulta para información con el Centro de Ayuda del Infor: si necesitas 
+            información más detallada, puedes acceder a más información con un solo clic. 
+            Para obtener consejos o realizar tareas en el Centro de aprendizaje, 
+            encontrarás rápidamente opciones relacionadas, solución de problemas y otros 
+            detalles en enlace y otras informaciones que te dirigen a un Centro de asistencia 
+            para un total aprendizaje.</p>    
+    </aside>
+</section>
+{% endblock %}
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}

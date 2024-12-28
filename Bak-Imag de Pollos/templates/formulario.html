@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Formulario de Contacto{% endblock %}
+
+{% block navegacion %}
+{% include 'navegacion.html' %}
+{% endblock %}
+
+
+{% block contenido %}
+    <!-- Bloque de contenido con ajuste de altura para mostrar el footer -->
+    <div style="flex: 4; display: flex; justify-content: center; align-items: center; background-color: cadetblue; width: 100%; min-height: calc(100vh - 100px); box-sizing: border-box;">
+        <div style="max-width: 90%; width: 100%; background-color: beige; padding: 20px; box-sizing: border-box;">
+            
+            <h2 style="color: #333 !important;">Formulario de Contacto</h2>
+
+            <form action="{% url 'formulario' %}" method="post" style="display: flex; flex-direction: column; gap: 10px; color: inherit;">
+                {% csrf_token %}
+                <label for="nombre" style="color: #333 !important;">Nombre:</label>
+
+                <input type="text" id="nombre" name="nombre" placeholder="Ingresa tu nombre" required>
+                
+                <label for="email" style="color:  #333 !important;">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Ingresa tu email" required>
+    
+                <label for="consulta" style="color: #333 !important;">Consulta:</label>
+                <textarea id="consulta" name="consulta" rows="4" placeholder="Escribe tu consulta aquí"></textarea>
+    
+                <input type="submit" value="Enviar" style="margin-top: 10px; background-color: rgb(22, 32, 39); color: white; border: none; padding: 10px; cursor: pointer;">
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% include 'footer.html' %}
+{% endblock %}
